@@ -109,6 +109,238 @@ paths:
           description: user is not authorized
       security:
       - cookieAuth: []
+
+
+  /user/familyrecepies:
+    get:
+      tags:
+      - Users
+      summary: Return the family recipes that were saved by user
+      description: Get an array of family recipes that were saved by a specific user
+      responses:
+        "200":
+          description: data about the user's family recipes returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+    post:
+      tags:
+      - Users
+      summary: save recipe in the family recipes list of a user
+      description: save recipe in the family recipes list of a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: int
+                  description: the user id
+                  example: 1
+                username:
+                  type: string
+                  description: the user id username
+                  example: 'NoaBBB'
+                recipe_id:
+                  type: int
+                  description: the recipe id
+                  example: 9999983
+                title:
+                  type: string
+                  description: the recipe title
+                  example: "cake"
+                image:
+                  type: string
+                  description: the recipe image
+                  example: "image.jpg"
+                how_to_make:
+                  type: JSON
+                  description: how can i make the recipe with the name unit and amount 
+                  example: "{ name: 'John Doe', unit: 'ounce', amount: 25 }"
+                time_to_make:
+                  type: string
+                  description: how much time it takes to make this reciepe
+                  example: "30 min"
+                likes:
+                  type: int
+                  description: how many users liket this 
+                  example: 4
+                is_vegan:                   
+                  type: string
+                  description: is this recipe is vegan or not of yes it vegan
+                  example: "yes"
+                is_gluten_free:                  
+                  type: string
+                  description: is this recipe is gluten free or not of yes it gluten free
+                  example: "yes"    
+                servings:                  
+                  type: int
+                  description: how many units we can make from this recipe
+                  example: 5              
+      responses:
+        "200":
+          description: The Recipe successfully saved as family recipes
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+
+
+
+  /user/myrecipes:
+    get:
+      tags:
+      - Users
+      summary: Return the my recipes that were saved by user
+      description: Get an array of my recipes that were saved by a specific user
+      responses:
+        "200":
+          description: data about the user's recipes that he saved as my recipes returned
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RecipePreview'
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+    post:
+      tags:
+      - Users
+      summary: save recipe in the my recipes list of a user
+      description: save recipe in the my recipes list of a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: int
+                  description: the user id
+                  example: 1
+                username:
+                  type: string
+                  description: the user id username
+                  example: 'NoaBBB'
+                recipe_id:
+                  type: int
+                  description: the recipe id
+                  example: 9999983
+                title:
+                  type: string
+                  description: the recipe title
+                  example: "cake"
+                image:
+                  type: string
+                  description: the recipe image
+                  example: "image.jpg"
+                how_to_make:
+                  type: JSON
+                  description: how can i make the recipe with the name unit and amount 
+                  example: "{ name: 'John Doe', unit: 'ounce', amount: 25 }"
+                time_to_make:
+                  type: string
+                  description: how much time it takes to make this reciepe
+                  example: "30 min"
+                likes:
+                  type: int
+                  description: how many users liket this 
+                  example: 4
+                is_vegan:                   
+                  type: string
+                  description: is this recipe is vegan or not of yes it vegan
+                  example: "yes"
+                is_gluten_free:                  
+                  type: string
+                  description: is this recipe is gluten free or not of yes it gluten free
+                  example: "yes"    
+                servings:                  
+                  type: int
+                  description: how many units we can make from this recipe
+                  example: 5          
+      responses:
+        "200":
+          description: The Recipe successfully saved as my recipes
+        "401":
+          description: user is not authorized
+      security:
+      - cookieAuth: []
+
+  /user/lastwatch:
+      get:
+        tags:
+        - Users
+        summary: Return the 3 last recipes that were wached by user
+        description: Get an array of my 3 last recipes that wached by a specific user
+        responses:
+          "200":
+            description: data about the user's  3 last wached recipes returned
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RecipePreview'
+          "401":
+            description: user is not authorized
+        security:
+        - cookieAuth: []
+      post:
+        tags:
+        - Users
+        summary: save recipe in the view recipes list of a user
+        description: save recipe in the view recipes list of a user
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  recipe_id:
+                    type: int
+                    description: the recipe id
+                    example: 9999983     
+        responses:
+          "200":
+            description: The Recipe successfully saved as watced recipes
+          "401":
+            description: user is not authorized
+        security:
+        - cookieAuth: []
+
+
+  /user/allobserved:
+      get:
+        tags:
+        - Users
+        summary: Return the recipes that were wached by user
+        description: Get an array of my recipes that wached by a specific user
+        responses:
+          "200":
+            description: data about the user's wached recipes returned
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/RecipePreview'
+          "401":
+            description: user is not authorized
+        security:
+        - cookieAuth: []
+
+
   /recipes/{recipeId}:
     get:
       tags:
@@ -133,6 +365,72 @@ paths:
                 $ref: '#/components/schemas/RecipePreview'
         "404":
           description: recipeId is not exists
+
+
+
+  /recipes/randomrecipes:
+    get:
+      tags:
+      - Recipes
+      summary: Return 3 random recipes 
+      description: Return list of 3 random recipes
+      responses:
+        "200":
+          description: data about the recipes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipePreview'
+        "404":
+          description: there is no recipes
+
+  /recipes/search:
+    get:
+      tags:
+      - Recipes
+      summary: Return 3 random recipes 
+      description: Return list of 3 random recipes
+      parameters:
+      - name: query
+        in: query
+        description: The (natural language) recipe search query
+        required: false
+        schema:
+          type: string
+      - name: cuisine
+        in: query
+        description: The cuisine(s) of the recipes
+        required: false
+        schema:
+          type: string
+      - name: diet
+        in: query
+        description: The diet(s) for which the recipes must be suitable
+        required: false
+        schema:
+          type: string
+      - name: intolerances
+        in: query
+        description: A comma-separated list of intolerances
+        required: false
+        schema:
+          type: string
+      - name: number
+        in: query
+        description: Number of recipes to return
+        required: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: data about the recipes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipePreview'
+        "404":
+          description: there is no recipes
+
 components:
   schemas:
     User:
